@@ -31,9 +31,6 @@ python fsw_cmd_tlm_parser/main.py
 ## Project Structure
 ```plaintext
 FSWCmdTlmParser/
-├── __pycache__/
-│   ├── clang_parser.cpython-311.pyc
-│   ├── utils.cpython-311.pyc
 ├── sample_files/
 │   ├── command_functions.c
 │   ├── telemetry_functions.c
