@@ -1,0 +1,180 @@
+{
+    "commands": [
+        {
+            "name": "CmdSetSpeed",
+            "return_type": "void",
+            "args": [
+                {
+                    "name": "speed",
+                    "type": "int"
+                }
+            ]
+        },
+        {
+            "name": "CmdProcessData",
+            "return_type": "void",
+            "args": [
+                {
+                    "name": "data",
+                    "type": {
+                        "kind": "struct",
+                        "name": "DataPacket",
+                        "fields": [
+                            {
+                                "name": "id",
+                                "type": "int"
+                            },
+                            {
+                                "name": "value",
+                                "type": "float"
+                            },
+                            {
+                                "name": "status",
+                                "type": {
+                                    "kind": "struct",
+                                    "name": "Status",
+                                    "fields": [
+                                        {
+                                            "name": "isConnected",
+                                            "type": "unsigned int",
+                                            "bitfield_width": 1
+                                        },
+                                        {
+                                            "name": "errorCode",
+                                            "type": "unsigned int",
+                                            "bitfield_width": 4
+                                        },
+                                        {
+                                            "name": "reserved",
+                                            "type": "unsigned int",
+                                            "bitfield_width": 3
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "CmdHandleUnion",
+            "return_type": "void",
+            "args": [
+                {
+                    "name": "value",
+                    "type": {
+                        "kind": "union",
+                        "name": "DataValue",
+                        "fields": [
+                            {
+                                "name": "intValue",
+                                "type": "int"
+                            },
+                            {
+                                "name": "floatValue",
+                                "type": "float"
+                            },
+                            {
+                                "name": "strValue",
+                                "type": {
+                                    "kind": "array",
+                                    "element_type": "char",
+                                    "size": 20
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "CmdUseTypedef",
+            "return_type": "void",
+            "args": [
+                {
+                    "name": "aliasValue",
+                    "type": {
+                        "kind": "typedef",
+                        "name": "ulong",
+                        "underlying_type": {
+                            "kind": "typedef",
+                            "name": "ulong",
+                            "underlying_type": "unsigned long"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "CmdUseFunctionPointer",
+            "return_type": "void",
+            "args": [
+                {
+                    "name": "func",
+                    "type": {
+                        "kind": "typedef",
+                        "name": "FuncPtr",
+                        "underlying_type": {
+                            "kind": "typedef",
+                            "name": "FuncPtr",
+                            "underlying_type": {
+                                "kind": "pointer",
+                                "pointee_type": {
+                                    "kind": "function",
+                                    "return_type": "int",
+                                    "args": [
+                                        {
+                                            "name": "arg0",
+                                            "type": "int"
+                                        },
+                                        {
+                                            "name": "arg1",
+                                            "type": "float"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "ExampleFunction",
+            "return_type": "int",
+            "args": [
+                {
+                    "name": "a",
+                    "type": "int"
+                },
+                {
+                    "name": "b",
+                    "type": "float"
+                }
+            ]
+        },
+        {
+            "name": "main",
+            "return_type": "int",
+            "args": []
+        }
+    ],
+    "telemetry": [
+        {
+            "name": "TlmEngineStatus",
+            "return_type": "int",
+            "args": []
+        },
+        {
+            "name": "TlmSpeed",
+            "return_type": "int",
+            "args": []
+        },
+        {
+            "name": "TlmFuelLevel",
+            "return_type": "float",
+            "args": []
+        }
+    ]
+}
