@@ -26,7 +26,6 @@ def extract_declarations(filename):
     def visit_node(node):
         # Check for type declarations (struct, union, typedef)
         if node.kind in [clang.cindex.CursorKind.STRUCT_DECL, clang.cindex.CursorKind.UNION_DECL, clang.cindex.CursorKind.TYPEDEF_DECL]:
-            print(f"Declaring type: {node.spelling}, kind: {node.kind}")  # Debugging print
             # Extract type information and add to declared types dictionary
             declared_types[node.spelling] = extract_type_info(node.type, declared_types)
         # Recursively visit children nodes
@@ -65,7 +64,6 @@ def extract_function_declarations(filename, keyword, declared_types):
                 if node.location.file and node.location.file.name == filename:
                     # Extract arguments and expand their types
                     args = [{"name": arg.spelling, "type": expand_type(extract_type_info(arg.type, declared_types), declared_types)} for arg in node.get_arguments()]
-                    print(f"Function {node.spelling} args: {args}")  # Debugging print
                     # Append function information to the functions list
                     functions.append({
                         "name": node.spelling,
@@ -97,8 +95,6 @@ def parse_code(command_file, telemetry_file, command_keyword, telemetry_keyword)
     # Extract declarations from command and telemetry files
     declared_types = extract_declarations(command_file)
     declared_types.update(extract_declarations(telemetry_file))
-
-    print(f"Declared types: {declared_types}")  # Debugging print
 
     # Extract function declarations for commands and telemetry
     commands = extract_function_declarations(command_file, command_keyword, declared_types)

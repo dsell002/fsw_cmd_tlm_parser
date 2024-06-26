@@ -47,8 +47,6 @@ def extract_type_info(t, declared_types=None):
     Returns:
     dict or str: A dictionary containing type information, or a string for simple types.
     """
-    print(f"Extracting type info for: {t.spelling}, kind: {t.kind}")  # Debugging print
-
     if t.kind == clang.cindex.TypeKind.RECORD:
         cursor = t.get_declaration()
         fields = []
@@ -102,8 +100,6 @@ def expand_type(t, declared_types, expanded_types=None):
     """
     if expanded_types is None:
         expanded_types = set()
-    
-    print(f"Expanding type: {t}")  # Debugging print
 
     if isinstance(t, dict) and "kind" in t:
         if t["kind"] == "typedef":
